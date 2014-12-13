@@ -31,11 +31,11 @@ void resetTripwire(const FunctionCallbackInfo<Value>& args)
   	isolate = args.GetIsolate();
 
 	if (0 == args.Length() || !args[0]->IsUint32())
-		return isolate->ThrowException(Exception::Error(isolate, String::NewFromUtf8(
+		return isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate, 
 			"First agument must be an integer time threshold in milliseconds.")));
 
 	if (0 == args[0]->ToUint32()->Value())
-		return isolate->ThrowException(Exception::Error(isolate, String::NewFromUtf8(
+		return isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate, 
 			"The time threshold for blocking operations must be greater than 0.")));
 
 	clearTripwire(args);
