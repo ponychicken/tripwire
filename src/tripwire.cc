@@ -10,9 +10,23 @@ unsigned int tripwireThreshold;
 Persistent<Value> context;
 int terminated;
 
-Handle<Value> clearTripwire(const Arguments& args) 
+v8::Handle<v8::Value> FortyTwo(const v8::Arguments& args) {
+  v8::HandleScope handle_scope;
+  return handle_scope.Close(v8::Integer::New(42));
+}
+In Node v0.12, you write:
+
+1
+2
+3
+4
+void FortyTwo(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  // Don't need a HandleScope in this particular example.
+  info.GetReturnValue().Set(42);
+}
+
+void clearTripwire(const FunctionCallbackInfo<Value>& args) 
 {
-    HandleScope scope;
 
     // Seting tripwireThreshold to 0 indicates to the worker process that
     // there is no threshold to enforce. The worker process will make this determination
@@ -24,10 +38,9 @@ Handle<Value> clearTripwire(const Arguments& args)
 	context.Dispose();
 	context.Clear();
 
-    return Undefined();
 }
 
-Handle<Value> resetTripwire(const Arguments& args)
+void resetTripwire(const FunctionCallbackInfo<Value>& args)
 {
     HandleScope scope;
 
@@ -50,7 +63,7 @@ Handle<Value> resetTripwire(const Arguments& args)
 	return resetTripwireCore();
 }
 
-Handle<Value> getContext(const Arguments& args) 
+void getContext(const FunctionCallbackInfo<Value>& args) 
 {
     HandleScope scope;
 
