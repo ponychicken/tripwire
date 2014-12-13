@@ -91,7 +91,7 @@ void* tripwireWorker(void* data)
 				if (elapsedMs >= tripwireThreshold)
 				{
 					terminated = 1;
-					V8::TerminateExecution();
+					V8::TerminateExecution(Isolate::GetCurrent());
 				}
 				else
 				{
