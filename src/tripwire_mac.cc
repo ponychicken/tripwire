@@ -91,7 +91,7 @@ void* tripwireWorker(void* data)
 				if (elapsedMs >= tripwireThreshold)
 				{
 					terminated = 1;
-					V8::TerminateExecution();
+					V8::TerminateExecution(Isolate::GetCurrent());
 				}
 				else
 				{
@@ -104,9 +104,9 @@ void* tripwireWorker(void* data)
 	pthread_exit(NULL);
 }
 
-Handle<Value> resetTripwireCore()
+void resetTripwireCore()
 {
-    HandleScope scope;
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
     if (NULL == tripwireThread) 
     {
@@ -115,7 +115,7 @@ Handle<Value> resetTripwireCore()
 
     	if (0 != pthread_create(&tripwireThread, NULL, tripwireWorker, NULL))
     	{
-    		return ThrowException(Exception::Error(String::New("Unable to initialize a tripwire thread.")));
+    		isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Unable to initialize a tripwire thread.")));
     	}
     }
     else 
@@ -128,8 +128,6 @@ Handle<Value> resetTripwireCore()
     	pthread_cond_signal(&tripwireCondition);
     	pthread_mutex_unlock(&tripwireMutex);
     }
-
-    return Undefined();
 }
 
 void initCore() 
