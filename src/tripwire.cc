@@ -46,7 +46,7 @@ void resetTripwire(const v8::FunctionCallbackInfo<v8::Value>& args)
 	tripwireThreshold = args[0]->ToUint32()->Value();
 	if (args.Length() > 1) 
 	{
-		context = Persistent<Value>::New(isolate, args[1]);
+		context = Persistent<v8::Value>::New(isolate, args[1]);
 	}
 
 	resetTripwireCore();
