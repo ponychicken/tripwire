@@ -54,7 +54,7 @@ void resetTripwire(const FunctionCallbackInfo<v8::Value>& args)
 
 void getContext(const FunctionCallbackInfo<Value>& args) 
 {
-    HandleScope scope;
+
 
     // If the script had been terminated by tripwire, returns the context passed to resetTripwire;
     // otherwise undefined. This can be used from within the uncaughtException handler to determine
