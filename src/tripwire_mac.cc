@@ -129,7 +129,7 @@ Handle<Value> resetTripwireCore()
     	pthread_mutex_unlock(&tripwireMutex);
     }
 
-    return Undefined();
+    return Undefined(Isolate::GetCurrent());
 }
 
 void initCore() 
