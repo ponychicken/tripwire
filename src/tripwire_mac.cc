@@ -117,7 +117,7 @@ Handle<Value> resetTripwireCore()
 
     	if (0 != pthread_create(&tripwireThread, NULL, tripwireWorker, NULL))
     	{
-    		return ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Unable to initialize a tripwire thread.")));
+    		return isolate::ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Unable to initialize a tripwire thread.")));
     	}
     }
     else 
