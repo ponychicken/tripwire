@@ -28,7 +28,7 @@ void clearTripwire(const FunctionCallbackInfo<Value>& args)
 
 }
 
-void resetTripwire(const FunctionCallbackInfo<Value>& args)
+void resetTripwire(const FunctionCallbackInfo<v8::Value>& args)
 {
 	v8::Isolate* isolate;
   	isolate = args.GetIsolate();
