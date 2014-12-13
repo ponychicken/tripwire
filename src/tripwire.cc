@@ -22,7 +22,8 @@ void clearTripwire(const FunctionCallbackInfo<Value>& args)
 
 	tripwireThreshold = 0;
 	terminated = 0;
-	isolate->GetCurrentContext()->Exit();
+	
+	context->Exit();
 
 }
 
@@ -44,7 +45,7 @@ void resetTripwire(const FunctionCallbackInfo<Value>& args)
 	tripwireThreshold = args[0]->ToUint32()->Value();
 	if (args.Length() > 1) 
 	{
-		context = Persistent<Value>::New(args[1]);
+		context = Persistent<Value>::New(isolate, args[1]);
 	}
 
 	resetTripwireCore();
