@@ -104,7 +104,7 @@ void* tripwireWorker(void* data)
 	pthread_exit(NULL);
 }
 
-Handle<Value> resetTripwireCore()
+void resetTripwireCore()
 {
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
@@ -128,8 +128,6 @@ Handle<Value> resetTripwireCore()
     	pthread_cond_signal(&tripwireCondition);
     	pthread_mutex_unlock(&tripwireMutex);
     }
-
-    return Undefined(isolate);
 }
 
 void initCore() 
