@@ -12,8 +12,12 @@ int terminated;
 
 void clearTripwire(const FunctionCallbackInfo<Value>& args) 
 {
-
-    // Seting tripwireThreshold to 0 indicates to the worker process that
+	v8::Isolate* isolate;
+  	isolate = args.GetIsolate();
+  	v8::Context* context;
+  	context = isolate->GetCurrentContext();
+	
+    // Setting tripwireThreshold to 0 indicates to the worker process that
     // there is no threshold to enforce. The worker process will make this determination
     // next time it is signalled, there is no need to force an extra context switch here
     // by explicit signalling. 
