@@ -27,14 +27,15 @@ void clearTripwire(const FunctionCallbackInfo<Value>& args)
 
 void resetTripwire(const FunctionCallbackInfo<Value>& args)
 {
-    HandleScope scope;
+	v8::Isolate* isolate;
+  	isolate = args.GetIsolate();
 
 	if (0 == args.Length() || !args[0]->IsUint32())
-		return ThrowException(Exception::Error(String::New(
+		return isolate->ThrowException(Exception::Error(isolate, String::NewFromUtf8(
 			"First agument must be an integer time threshold in milliseconds.")));
 
 	if (0 == args[0]->ToUint32()->Value())
-		return ThrowException(Exception::Error(String::New(
+		return isolate->ThrowException(Exception::Error(isolate, String::NewFromUtf8(
 			"The time threshold for blocking operations must be greater than 0.")));
 
 	clearTripwire(args);
@@ -58,8 +59,6 @@ void getContext(const FunctionCallbackInfo<Value>& args)
 
     if (terminated)
     	return context;
-    else
-    	return Undefined();
 }
 
 void init(Handle<Object> target) 
