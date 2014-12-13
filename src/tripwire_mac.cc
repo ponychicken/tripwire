@@ -107,8 +107,6 @@ void* tripwireWorker(void* data)
 Handle<Value> resetTripwireCore()
 {
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
-    
-    EscapableHandleScope handle_scope(isolate);
 
     if (NULL == tripwireThread) 
     {
@@ -117,7 +115,7 @@ Handle<Value> resetTripwireCore()
 
     	if (0 != pthread_create(&tripwireThread, NULL, tripwireWorker, NULL))
     	{
-    		return isolate::ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Unable to initialize a tripwire thread.")));
+    		return isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Unable to initialize a tripwire thread.")));
     	}
     }
     else 
