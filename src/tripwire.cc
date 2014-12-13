@@ -24,8 +24,7 @@ void clearTripwire(const FunctionCallbackInfo<Value>& args)
 
 	tripwireThreshold = 0;
 	terminated = 0;
-	context->Dispose();
-	context->Clear();
+	context->Exit();
 
 }
 
