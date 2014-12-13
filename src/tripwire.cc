@@ -52,7 +52,7 @@ void resetTripwire(const FunctionCallbackInfo<v8::Value>& args)
 	resetTripwireCore();
 }
 
-void getContext(const FunctionCallbackInfo<Value>& args) 
+Persistent<Value> getContext(const FunctionCallbackInfo<Value>& args) 
 {
 
 
